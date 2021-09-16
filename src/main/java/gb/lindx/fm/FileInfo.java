@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class FileInfo {
 
-  private enum FIleType {
+  enum FIleType {
     FILE("F"), DIRECTORY("D");
 
     private String name;
@@ -28,14 +28,14 @@ public class FileInfo {
     }
   }
 
-  private String name;
+  private String fileName;
   private FIleType type;
   private long size;
   private LocalDateTime lasModified;
 
   public FileInfo(Path path) {
     try {
-      this.name = path.getFileName().toString();
+      this.fileName = path.getFileName().toString();
       this.size = Files.size(path);
       this.type = Files.isDirectory(path) ? FIleType.DIRECTORY : FIleType.FILE;
 
