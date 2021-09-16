@@ -6,4 +6,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<Button text="text" />
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" fx:controller="gb.lindx.fm.Controller">
+  
+</VBox>
