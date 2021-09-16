@@ -6,6 +6,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" fx:controller="gb.lindx.fm.Controller">
-  
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" fx:controller="gb.lindx.fm.Controller" alignment="center">
+
+  <MenuBar>
+    <Menu text="File">
+      <MenuItem text="Exit" />
+    </Menu>
+  </MenuBar>
+
+
+  <HBox>
+    <ComboBox />
+    <TextField HBox.hgrow="ALWAYS" editable="false" />
+    <Button text="Up" />
+  </HBox>
+
+
+  <TableView VBox.vgrow="ALWAYS" />
+
+  <HBox spacing="5">
+
+    <Button text="Copy" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+    <Button text="Move" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+    <Button text="Delete" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+    <Button text="Exit" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#btnExitAction" />
+    <padding>
+      <Insets bottom="5" left="5" right="5" top="5" />
+    </padding>
+
+
+  </HBox>
+
 </VBox>
