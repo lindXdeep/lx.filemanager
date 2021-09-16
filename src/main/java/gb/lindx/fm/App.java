@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+  private static int sW = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+  private static int sH = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+
   public static void main(String[] args) {
     Application.launch(args);
   }
@@ -19,9 +22,11 @@ public class App extends Application {
     loader.setLocation(this.getClass().getResource("/main.fxml"));
 
     Parent root = loader.load();
-    Scene scene = new Scene(root);
+    Scene scene = new Scene(root, sW*0.5, sH*0.5);
 
     primaryStage.setScene(scene);
+    primaryStage.setTitle("lx / File Manager");
+
     primaryStage.show();
   }
 }
