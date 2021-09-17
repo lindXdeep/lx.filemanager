@@ -10,7 +10,7 @@
 
   <MenuBar>
     <Menu text="File">
-      <MenuItem text="Exit" />
+      <MenuItem text="Exit" onAction="#btnExitAction"/>
     </Menu>
   </MenuBar>
 
@@ -21,10 +21,10 @@
 
   <HBox spacing="5">
 
-    <Button text="Copy" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-    <Button text="Move" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-    <Button text="Delete" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-    <Button text="Exit" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#btnExitAction" />
+    <Button text="Copy" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#copyBtnAction" />
+    <Button text="Move" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+    <Button text="Delete" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+    <Button text="Exit" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#btnExitAction" />
     <padding>
       <Insets bottom="5" left="5" right="5" top="5" />
     </padding>

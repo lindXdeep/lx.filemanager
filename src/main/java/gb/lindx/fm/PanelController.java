@@ -170,4 +170,15 @@ public class PanelController implements Initializable {
     updateList(p);
   }
 
+  public String getSelectedFileName() {
+
+    if (!filesTable.isFocused()) {
+      return null;
+    }
+    return filesTable.getSelectionModel().getSelectedItem().getFileName();
+  }
+
+  public String getCurentPath() {
+    return dirField.getText();
+  }
 }
