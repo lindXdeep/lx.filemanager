@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,32 +13,36 @@ import lombok.Setter;
 @Setter
 public class FileInfo {
 
-  enum FIleType {
+  public enum FileType {
+
     FILE("F"), DIRECTORY("D");
 
     private String name;
 
-    FIleType(String name) {
+    FileType(String name) {
       this.name = name;
     }
 
-    public String getName() {
+    public String getTypeName() {
       return name;
     }
   }
 
+  private FileType type;
+
   private String fileName;
-  private FIleType type;
+
   private long size;
+
   private LocalDateTime lasModified;
 
   public FileInfo(Path path) {
     try {
       this.fileName = path.getFileName().toString();
       this.size = Files.size(path);
-      this.type = Files.isDirectory(path) ? FIleType.DIRECTORY : FIleType.FILE;
+      this.type = Files.isDirectory(path) ? FileType.DIRECTORY : FileType.FILE;
 
-      if (this.type == FIleType.DIRECTORY) {
+      if (this.type == FileType.DIRECTORY) {
         this.size = -1L;
       }
 
@@ -54,7 +57,5 @@ public class FileInfo {
     } catch (IOException e) {
       throw new RuntimeException("Unable to create file info from path");
     }
-
   }
-
 }

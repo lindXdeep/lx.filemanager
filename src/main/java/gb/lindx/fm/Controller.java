@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,14 +33,21 @@ public class Controller implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     TableColumn<FileInfo, String> fileTypeColumn = new TableColumn<>("Type");
-    fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getType().getName()));
-    fileTypeColumn.setPrefWidth(24);
+    fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getType().getTypeName()));
+    fileTypeColumn.setPrefWidth(100);
 
     TableColumn<FileInfo, String> fileNameColumn = new TableColumn<>("Name");
-    fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFileName()));
-    fileTypeColumn.setPrefWidth(240);
+    fileNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFileName()));
+    fileNameColumn.setPrefWidth(240);
 
-    filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn);
+    TableColumn<FileInfo, Long> fileSizeColumn = new TableColumn<>("Size");
+    fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getSize()));
+    fileSizeColumn.setPrefWidth(200);
+
+    filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn);
+
+    filesTable.getSortOrder().add(fileTypeColumn);
+
 
     updateList(Paths.get(".", "A"));
   }
@@ -59,7 +67,7 @@ public class Controller implements Initializable {
 
     } catch (IOException e) {
       Alert alert = new Alert(AlertType.WARNING, "Can't read files", ButtonType.OK);
-      alert.show();
+      alert.showAndWait();
     }
   }
 }
