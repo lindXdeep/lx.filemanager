@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -44,21 +45,29 @@ public class Controller implements Initializable {
     fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getSize()));
     fileSizeColumn.setPrefWidth(200);
 
+    fileSizeColumn.setCellFactory(column -> {
+      return new TableCell<FileInfo, Long>() {
+        @Override
+        protected void updateItem(Long item, boolean empty) {
+          super.updateItem(item, empty);
+        }
+      };
+    });
+
     filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn);
 
     filesTable.getSortOrder().add(fileTypeColumn);
-
 
     updateList(Paths.get(".", "A"));
   }
 
   public void updateList(Path path) {
-   
+
     try { // Files.list - может выбросить IOException
- 
+
       filesTable.getItems().clear(); // очищаем элементы в таблице
       filesTable.getItems().addAll(
-  
+
           Files.list(path) // читаем директорию в в иде потока
               .map(FileInfo::new) // преобразуем в fileInfo
               .collect(Collectors.toList()) // затем преобразуем в list
