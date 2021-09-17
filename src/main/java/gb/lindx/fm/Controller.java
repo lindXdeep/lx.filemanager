@@ -5,6 +5,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -33,28 +35,48 @@ public class Controller implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    TableColumn<FileInfo, String> fileTypeColumn = new TableColumn<>("Type");
+    //Type file
+    TableColumn<FileInfo, String> fileTypeColumn = new TableColumn<>();
     fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getType().getTypeName()));
-    fileTypeColumn.setPrefWidth(100);
+    fileTypeColumn.setPrefWidth(25);
 
+    //Name file
     TableColumn<FileInfo, String> fileNameColumn = new TableColumn<>("Name");
     fileNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFileName()));
     fileNameColumn.setPrefWidth(240);
 
+    // Size file
     TableColumn<FileInfo, Long> fileSizeColumn = new TableColumn<>("Size");
     fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getSize()));
-    fileSizeColumn.setPrefWidth(200);
+    fileSizeColumn.setPrefWidth(100);
 
     fileSizeColumn.setCellFactory(column -> {
       return new TableCell<FileInfo, Long>() {
         @Override
         protected void updateItem(Long item, boolean empty) {
           super.updateItem(item, empty);
+          if (item == null || empty) {
+            setText(null);
+            setStyle("");
+          } else {
+            String text = String.format("%,d bytes", item);
+            if (item == -1L) {
+              text = "[DIR]";
+            }
+            setText(text);
+          }
         }
       };
     });
 
-    filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn);
+    //Data Modified file
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    TableColumn<FileInfo, String> fileDateColumn = new TableColumn<>("Modified");
+    fileDateColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLasModified().format(dtf)));
+    fileDateColumn.setPrefWidth(150);
+
+    filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn, fileDateColumn);
 
     filesTable.getSortOrder().add(fileTypeColumn);
 
