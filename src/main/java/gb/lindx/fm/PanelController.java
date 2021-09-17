@@ -84,7 +84,10 @@ public class PanelController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         if (event.getClickCount() == 2) {
-          Path p = Paths.get(dirField.getText()).resolve(filesTable.getSelectionModel().getSelectedItem().toString());
+
+          Path p = Paths.get(dirField.getText())
+              .resolve(filesTable.getSelectionModel().getSelectedItem().getFileName());
+
           if (Files.isDirectory(p)) {
             updateList(p);
           }
