@@ -12,9 +12,11 @@ import java.util.stream.Stream;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 
 public class PanelController implements Initializable {
 
@@ -77,6 +79,18 @@ public class PanelController implements Initializable {
 
     filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn, fileDateColumn);
     filesTable.getSortOrder().add(fileTypeColumn);
+
+    filesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+          Path p = Paths.get(dirField.getText()).resolve(filesTable.getSelectionModel().getSelectedItem().toString());
+          if (Files.isDirectory(p)) {
+            updateList(p);
+          }
+        }
+      };
+    });
 
     // Combobox discs
     try {
@@ -152,4 +166,5 @@ public class PanelController implements Initializable {
 
     updateList(p);
   }
+
 }
