@@ -18,11 +18,17 @@ import javafx.scene.control.Alert.AlertType;
 
 public class PanelController implements Initializable {
 
+  String osname = System.getProperty("os.name");
+  String username = System.getProperty("user.name");
+
   @FXML
   private TableView<FileInfo> filesTable;
 
   @FXML
   private ComboBox<String> disksBox;
+
+  @FXML
+  private TextField dirField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -76,9 +82,6 @@ public class PanelController implements Initializable {
     try {
       disksBox.getItems().clear();
 
-      String osname = System.getProperty("os.name");
-      String username = System.getProperty("user.name");
-
       Iterator<Path> i = null;
 
       if (osname.equals("Linux")) {
@@ -103,6 +106,8 @@ public class PanelController implements Initializable {
 
   public void updateList(Path path) {
 
+    dirField.setText(path.normalize().toAbsolutePath().toString());
+
     try { // Files.list - может выбросить IOException
 
       filesTable.getItems().clear(); // очищаем элементы в таблице
@@ -120,4 +125,31 @@ public class PanelController implements Initializable {
     }
   }
 
+  @FXML
+  public void btnUpWalking(ActionEvent event) {
+
+    Path upperPath = Paths.get(dirField.getText()).getParent();
+
+    if (upperPath != null) {
+      updateList(upperPath);
+    }
+  }
+
+  @FXML
+  public void selectionDisk(ActionEvent event) {
+
+    ComboBox<String> disk = (ComboBox<String>) event.getSource();
+
+    String pathToDisk = disk.getSelectionModel().getSelectedItem();
+
+    Path p = null;
+
+    if (osname.equals("Linux")) {
+      p = Paths.get("/media/".concat(username.concat("/")).concat(pathToDisk)); // /media/<username>/<disk>
+    } else {
+      p = Paths.get(pathToDisk);
+    }
+
+    updateList(p);
+  }
 }

@@ -22,7 +22,7 @@ public class App extends Application {
     loader.setLocation(this.getClass().getResource("/main.fxml"));
 
     Parent root = loader.load();
-    Scene scene = new Scene(root, sW*0.5, sH*0.5);
+    Scene scene = new Scene(root, sW*0.8, sH*0.5);
 
     primaryStage.setScene(scene);
     primaryStage.setTitle("lx / File Manager");

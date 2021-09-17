@@ -10,9 +10,9 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="gb.lindx.fm.PanelController" alignment="center">
 
   <HBox>
-    <ComboBox fx:id="disksBox" />
-    <TextField HBox.hgrow="ALWAYS" editable="false" />
-    <Button text="Up" />
+    <ComboBox fx:id="disksBox"  onAction="#selectionDisk"/>
+    <TextField HBox.hgrow="ALWAYS" editable="false" fx:id="dirField" />
+    <Button text="Up" onAction="#btnUpWalking" />
   </HBox>
   <TableView fx:id="filesTable" VBox.vgrow="ALWAYS" />
 
