@@ -14,7 +14,7 @@
     </Menu>
   </MenuBar>
 
-  <HBox>
+  <HBox VBox.vgrow="ALWAYS">
     <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="leftPanel" />
     <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="rightPanel" />
   </HBox>

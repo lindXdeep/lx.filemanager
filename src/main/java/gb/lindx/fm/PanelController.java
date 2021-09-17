@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
 import java.time.format.*;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -19,13 +21,16 @@ public class PanelController implements Initializable {
   @FXML
   private TableView<FileInfo> filesTable;
 
+  @FXML
+  private ComboBox<String> disksBox;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
     // Type file
     TableColumn<FileInfo, String> fileTypeColumn = new TableColumn<>();
     fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getType().getTypeName()));
-    fileTypeColumn.setPrefWidth(25);
+    fileTypeColumn.setPrefWidth(60);
 
     // Name file
     TableColumn<FileInfo, String> fileNameColumn = new TableColumn<>("Name");
@@ -65,8 +70,33 @@ public class PanelController implements Initializable {
     fileDateColumn.setPrefWidth(150);
 
     filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn, fileDateColumn);
-
     filesTable.getSortOrder().add(fileTypeColumn);
+
+    // Combobox discs
+    try {
+      disksBox.getItems().clear();
+
+      String osname = System.getProperty("os.name");
+      String username = System.getProperty("user.name");
+
+      Iterator<Path> i = null;
+
+      if (osname.equals("Linux")) {
+        Path root = Paths.get("/media/".concat(username)); // /media/username/
+        i = Files.list(root).collect(Collectors.toList()).iterator();
+      } else {
+        i = FileSystems.getDefault().getRootDirectories().iterator();
+      }
+
+      while (i.hasNext())
+        disksBox.getItems().add(i.next().getFileName().toString());
+
+      disksBox.getSelectionModel().select(0);
+
+    } catch (IOException e) {
+      throw new RuntimeException("Can't read disks");
+    }
+    disksBox.getSelectionModel().select(0);
 
     updateList(Paths.get(".", "A"));
   }
