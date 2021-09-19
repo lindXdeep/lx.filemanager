@@ -7,9 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="gb.lindx.fm.PanelController" alignment="center">
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+  xmlns="http://javafx.com/javafx/10.0.2-internal" 
+  fx:controller="gb.lindx.fm.PanelController" alignment="center">
 
-  <HBox>
+  <HBox >
     <ComboBox fx:id="disksBox" onAction="#selectionDisk" />
     <TextField HBox.hgrow="ALWAYS" editable="false" fx:id="dirField" />
     <Button text="Up" onAction="#btnUpWalking" />

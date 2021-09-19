@@ -5,31 +5,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="gb.lindx.fm.Controller" alignment="center">
-
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+  xmlns="http://javafx.com/javafx/10.0.2-internal" 
+  fx:controller="gb.lindx.fm.Controller" stylesheets="style.css" alignment="center" >
   <MenuBar>
     <Menu text="File">
       <MenuItem text="Exit" onAction="#btnExitAction"/>
     </Menu>
   </MenuBar>
-
-  <HBox VBox.vgrow="ALWAYS">
-    <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="leftPanel" />
-    <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="rightPanel" />
+  <HBox VBox.vgrow="ALWAYS" >
+    <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="leftPanel"/>
+    <fx:include source="panel.fxml" HBox.hgrow="ALWAYS" fx:id="rightPanel"/>
   </HBox>
-
   <HBox spacing="5">
-
-    <Button text="Copy" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#copyBtnAction" />
-    <Button text="Move" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-    <Button text="Delete" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-    <Button text="Exit" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#btnExitAction" />
+    <Button text="Copy" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#copyBtnAction"/>
+    <Button text="Move" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+    <Button text="Delete" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+    <Button text="Exit" focusTraversable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#btnExitAction"/>
     <padding>
-      <Insets bottom="5" left="5" right="5" top="5" />
+      <Insets bottom="5" left="5" right="5" top="5"/>
     </padding>
-
-
   </HBox>
-
 </VBox>
